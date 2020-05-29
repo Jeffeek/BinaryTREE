@@ -1,0 +1,6 @@
+﻿  BinaryTree.cpp
+E:\projectsVS\BinaryTree\BinaryTree.cpp(9,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+  Node.cpp
+  Tree.cpp
+  Создание кода...
+  BinaryTree.vcxproj -> E:\projectsVS\BinaryTree\Debug\BinaryTree.exe

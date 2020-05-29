@@ -1,0 +1,2 @@
+E:\projectsVS\BinaryTree\x64\Debug\BinaryTree.exe
+E:\projectsVS\BinaryTree\x64\Debug\BinaryTree.pdb
