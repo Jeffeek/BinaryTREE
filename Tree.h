@@ -3,28 +3,49 @@
 #include <vector>
 #include <algorithm>
 using namespace std;
+template <typename T>
+/// <summary>
+/// class if Binary Tree
+/// </summary>
+/// <typeparam name="T">using data-type for tree</typeparam>
 class Tree
 {
 private:
-	Node *Root;
-	int Count;
+	/// <summary>
+	/// main root of tree(start node)
+	/// </summary>
+	Node<T> *Root = nullptr;
+	/// <summary>
+	/// count of nodes
+	/// </summary>
+	int Count = 0;
 
 public:
-	Node* GetRoot()
+	/// <summary>
+	/// getter for root-reference(NOT recommended - unsafe, you can lose all the tree)
+	/// </summary>
+	/// <returns>Root</returns>
+	Node<T>* GetRoot()
 	{
 		return Root;
 	}
-
+	/// <summary>
+	/// getter count of nodes
+	/// </summary>
+	/// <returns>Count</returns>
 	int GetCount()
 	{
 		return Count;
 	}
-
-	void Add(int data)
+	/// <summary>
+	/// method for add new node
+	/// </summary>
+	/// <param name="data">info</param>
+	void Add(T data)
 	{
-		if (Root == NULL)
+		if (Root == nullptr)
 		{
-			Node *node = new Node();
+			Node<T> *node = new Node<T>();
 			node->SetData(data);
 			Root = node;
 			Count = 1;
@@ -35,10 +56,10 @@ public:
 		Count++;
 	}
 
-	//Прямой обход (NLR)
-    vector<int> Preorder()
+	//pryamoy (NLR)
+    vector<T> Preorder()
 	{
-		if (Root == NULL)
+		if (Root == nullptr)
 		{
 			return vector<int>();
 		}
@@ -46,33 +67,38 @@ public:
 		return Preorder(Root);
 	}
 
-	//обратный (post-order) LRN
-	vector<int> Postorder()
+	//obratniy (post-order) LRN
+	vector<T> Postorder()
 	{
-		if (Root == NULL)
+		if (Root == nullptr)
 		{
-			return vector<int>();
+			return vector<T>();
 		}
 
 		return Postorder(Root);
 	}
 
-	//центрированный (in-order) LNR
-	vector<int> Inorder()
+	//centrirovanniy (in-order) LNR
+	vector<T> Inorder()
 	{
-		if (Root == NULL)
+		if (Root == nullptr)
 		{
-			return vector<int>();
+			return vector<T>();
 		}
 
 		return Inorder(Root);
 	}
 
-	bool BinarySearch(int item)
+	/// <summary>
+	/// binary search
+	/// </summary>
+	/// <param name="item"></param>
+	/// <returns>true if found, else false</returns>
+	bool BinarySearch(T item)
 	{
 		try
 		{
-			if (Root != NULL)
+			if (Root != nullptr)
 			{
 				if (Root->GetData() == item)
 				{
@@ -82,12 +108,12 @@ public:
 				{
 					if (Root->GetData() < item)
 					{
-						if (Root->GetRight() != NULL)
+						if (Root->GetRight() != nullptr)
 							return Search(Root->GetRight(), item);
 					}
 					else if (Root->GetData() > item)
 					{
-						if (Root->GetLeft() != NULL)
+						if (Root->GetLeft() != nullptr)
 							return Search(Root->GetLeft(), item);
 					}
 					return false;
@@ -105,24 +131,32 @@ public:
 	}
 
 
-
+	/// <summary>
+	/// empty constructor
+	/// </summary>
+	/// <returns></returns>
 	Tree() {}
 
 private:
-	vector<int> Preorder(Node* node)
+	/// <summary>
+	/// recursive help-method for preorder
+	/// </summary>
+	/// <param name="node"></param>
+	/// <returns></returns>
+	vector<T> Preorder(Node<T>* node)
 	{
-		vector<int> list;
-		if (node != NULL)
+		vector<T> list;
+		if (node != nullptr)
 		{
 			list.push_back(node->GetData());
 
-			if (node->GetLeft() != NULL)
+			if (node->GetLeft() != nullptr)
 			{
 				auto V = Preorder(node->GetLeft());
 				list.insert(list.end(), V.begin(), V.end());
 			}
 
-			if (node->GetRight() != NULL)
+			if (node->GetRight() != nullptr)
 			{
 				auto V = Preorder(node->GetRight());
 				list.insert(list.end(), V.begin(), V.end());
@@ -131,19 +165,23 @@ private:
 
 		return list;
 	}
-
-	vector<int> Postorder(Node* node)
+	/// <summary>
+	/// recursive help-method for Postorder
+	/// </summary>
+	/// <param name="node"></param>
+	/// <returns></returns>
+	vector<T> Postorder(Node<T>* node)
 	{
-		vector<int> list;
-		if (node != NULL)
+		vector<T> list;
+		if (node != nullptr)
 		{
-			if (node->GetLeft() != NULL)
+			if (node->GetLeft() != nullptr)
 			{
 				auto V = Postorder(node->GetLeft());
 				list.insert(list.end(), V.begin(), V.end());
 			}
 
-			if (node->GetRight() != NULL)
+			if (node->GetRight() != nullptr)
 			{
 				auto V = Postorder(node->GetRight());
 				list.insert(list.end(), V.begin(), V.end());
@@ -153,13 +191,17 @@ private:
 		}
 		return list;
 	}
-
-	vector<int> Inorder(Node* node)
+	/// <summary>
+	/// recursive help-method for Inorder
+	/// </summary>
+	/// <param name="node"></param>
+	/// <returns></returns>
+	vector<T> Inorder(Node<T>* node)
 	{
-		vector<int> list;
-		if (node != NULL)
+		vector<T> list;
+		if (node != nullptr)
 		{
-			if (node->GetLeft() != NULL)
+			if (node->GetLeft() != nullptr)
 			{
 				auto V = Inorder(node->GetLeft());
 				list.insert(list.end(), V.begin(), V.end());
@@ -167,7 +209,7 @@ private:
 
 			list.push_back(node->GetData());
 
-			if (node->GetRight() != NULL)
+			if (node->GetRight() != nullptr)
 			{
 				auto V = Inorder(node->GetRight());
 				list.insert(list.end(), V.begin(), V.end());
@@ -176,8 +218,13 @@ private:
 
 		return list;
 	}
-
-	bool Search(Node* node, int item)
+	/// <summary>
+	/// recursive help-method for binary search
+	/// </summary>
+	/// <param name="node"></param>
+	/// <param name="item"></param>
+	/// <returns></returns>
+	bool Search(Node<T>* node, T item)
 	{
 		if (node->GetData() == item)
 		{
@@ -185,29 +232,19 @@ private:
 		}
 		else if (node->GetData() < item)
 		{
-			if (node->GetRight() != NULL)
+			if (node->GetRight() != nullptr)
 			{
 				return Search(node->GetRight(), item);
 			}
 		}
 		else
 		{
-			if (node->GetLeft() != NULL)
+			if (node->GetLeft() != nullptr)
 			{
 				return Search(node->GetLeft(), item);
 			}
 		}
 		return false;
-	}
-
-	void SetCount(int count)
-	{
-		Count = count;
-	}
-
-	void SetRoot(Node* root)
-	{
-		Root = root;
 	}
 };
 
